@@ -14,3 +14,5 @@
 
 Игровое меню(нужно только для возвращения в меню выбора сложности)  
 ![Menu](https://github.com/SssolidPrincesss/GUI-Minesweeper/blob/main/MSweeperImages/GameMenu.png)
+
+А теперь давайте разберемся из чего состоит программа:  

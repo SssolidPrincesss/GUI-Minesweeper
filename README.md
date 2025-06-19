@@ -16,3 +16,5 @@
 ![Menu](https://github.com/SssolidPrincesss/GUI-Minesweeper/blob/main/MSweeperImages/GameMenu.png)
 
 А теперь давайте разберемся из чего состоит программа:  
+![Menu](https://github.com/SssolidPrincesss/GUI-Minesweeper/blob/main/MSweeperImages/ShemeOfTheGameCode.png)  
+На данной схеме синиме праллелограммамы - классы, зеленые квадраты - методы классов, а желтыйе овалы - вложенные классы 

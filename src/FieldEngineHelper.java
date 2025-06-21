@@ -1,5 +1,3 @@
-package kursach;
-
 import java.util.*;
 
 public class FieldEngineHelper {

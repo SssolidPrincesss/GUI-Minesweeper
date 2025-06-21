@@ -1,5 +1,3 @@
-package kursach;
-
 public class MinerGame {
 
 	public static void main(String[] args) {

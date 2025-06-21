@@ -124,6 +124,9 @@ public void createTheField() {
 	    minerFrame.setVisible(true);
 	}
 ```
+Примерно так выглядит игровое поле без испольхования системного Look and Feel, прописаного в начале метода:  
+![Menu](https://github.com/SssolidPrincesss/GUI-Minesweeper/blob/main/MSweeperImages/noMagicField.png)    
+
 Метод createDifficultyPanel отвечает за создание и настройку панели выбора уровня сложности:  
 ```java 
 	private void createDifficultyPanel() {

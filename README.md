@@ -1,5 +1,6 @@
 # GUI-Minesweeper
-Это типичный сапер с тремя уровнями сложности в авторском исполнении. В зависимости от уровня сложности изменяются размеры игровго поля и частота генерации мин. Как и в стандартном сапере тут есть таймер и возможность пометить флажком клетку с миной 
+Это типичный сапер с тремя уровнями сложности в авторском исполнении. В зависимости от уровня сложности изменяются размеры игровго поля и частота генерации мин. Как и в стандартном сапере тут есть таймер и возможность пометить флажком клетку с миной  
+Полный код есть в ветке SourseCodeMINESWEEPER. Если есть какие-то предложения: у второй ветки есть pull request.  
   
 
 Давайте посмотрим на то, как выглядит игра:  
@@ -378,3 +379,108 @@ public void actionPerformed(ActionEvent e) {
 }
 ```
 
+И наконец, класс FieldEngineHelper. Здесь сосредоточена большая часть игровой логики: настройка сложности, обработка хода игрока и др.   
+Для корректной работы класса необходимо импортировать всего одну библиотеку:  
+```java
+import java.util.*;
+```
+Теперь объявим перменные экземпляра, для дальнейшего использования в методах калсса:  
+```java
+public class FieldEngineHelper {
+    private int fieldComplexity;
+    private double mineGenerationKey;
+    private int rows;
+    private int cols;
+    private char[][] matrix;
+```
+Здесь переменные, нужные для установки сложности и размеров поля, генерации мин, хранения количества строк и столбцов, а также сама матрица минного поля.  
+
+Первые методы класса setDifficulty и setFieldSize нужны для того, чтобы установить сложность игры и размеры игрового поля:  
+```java
+    public void setDifficulty(int comp) {
+    	this.fieldComplexity = comp;
+    	setFieldSize();
+    }
+    
+    public void setFieldSize() {
+    	switch(fieldComplexity) {
+    		case 1:
+    			rows = 6;
+    			cols = 6;
+    			mineGenerationKey = 0.15;
+    			break;
+    		case 2:
+    			rows = 12;
+    			cols = 12;
+    			mineGenerationKey = 0.25;
+    			break;
+    		case 3:
+    			rows = 16;
+    			cols = 16;
+    			mineGenerationKey = 0.35;
+    			break;
+    	}
+    }
+```
+Метод fillTheField нужен для того, чтобы заполнить игровое поле минами и цифровыми значениями (не без помощи метода adjacentCellsMines):  
+```java
+    public void fillTheField(){
+		
+		matrix = new char[rows][cols];
+		
+		Random rnd = new Random(System.currentTimeMillis());
+		
+		for (int i=0;i<rows;i++){
+		    for (int j=0;j<cols;j++){
+		    	matrix[i][j] = (rnd.nextDouble() < mineGenerationKey) ? '*' : '.';
+		    }
+		}
+		
+		for (int i=0;i<rows;i++){
+		    for (int j=0;j<cols;j++){
+		    	if(matrix[i][j] == '.') {
+		    	matrix[i][j] = adjacentCellsMines(i, j);
+		    	}
+		    }
+		}
+		for (int i=0;i<rows;i++){
+		    for (int j=0;j<cols;j++){
+		    	System.out.print(matrix[i][j] + "    ");
+		    }
+		    System.out.println();
+		    System.out.println();
+		}
+	}
+```
+В методе adjacentCellsMines происходит подсчет количества мин вокруг одной из ячеек игрового поля (предыдущий метод вызывает этот метод для каждой ячейки без мины):  
+```java
+    private char adjacentCellsMines(int row, int col) {
+        int count = 0;
+        
+        for (int i = Math.max(0, row-1); i <= Math.min(rows-1, row+1); i++) {
+            for (int j = Math.max(0, col-1); j <= Math.min(cols-1, col+1); j++) {
+                if (i == row && j == col) continue;
+                if (matrix[i][j] == '*') count++;
+            }
+        }
+        
+        return Character.forDigit(count, 10);
+    }
+```
+И наконец, геттеры класса, которые нужны нам для удобной работы с переменными экземпляра:  
+```java
+    public char[][] getField() {
+        return matrix;
+    }
+    
+    public int getRows() {
+        return rows;
+    }
+    
+    public int getCols() {
+        return cols;
+    }
+}
+```
+На этом всё! Я надеюсь, что вам понравился данный материал. Жду ваших предложений.  
+![Menu]()  
